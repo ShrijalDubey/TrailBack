@@ -4,6 +4,13 @@ from uuid import UUID
 
 from pydantic import BaseModel, Field
 
+
+class Provider(BaseModel):
+    id: UUID
+    name: str
+    slug: str
+
+
 class Model(BaseModel):
     id: UUID
     provider_id: UUID
@@ -13,6 +20,7 @@ class Model(BaseModel):
 
 
 class ModelPrice(BaseModel):
+    id: UUID
     model_id: UUID
     prices: dict[str, float]
     effective_from: datetime
@@ -20,6 +28,7 @@ class ModelPrice(BaseModel):
 
 
 class ModelMetrics(BaseModel):
+    id: UUID
     model_id: UUID
     window: str
     latency: float

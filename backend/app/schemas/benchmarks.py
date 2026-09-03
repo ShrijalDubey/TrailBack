@@ -4,14 +4,17 @@ from uuid import UUID
 
 from pydantic import BaseModel, Field
 
+
 class Benchmark(BaseModel):
     id: UUID
     dataset: str
     version: str
     status: str
+    created_at: datetime
 
 
 class BenchmarkResult(BaseModel):
+    id: UUID
     benchmark_id: UUID
     model_id: UUID
     task: str

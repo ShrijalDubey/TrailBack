@@ -4,10 +4,13 @@ from uuid import UUID
 
 from pydantic import BaseModel, Field
 
+
 class Request(BaseModel):
     id: UUID
     project_id: UUID
+    model_id: UUID | None = None
     model: str
+    provider_id: UUID | None = None
     provider: str
     created_at: datetime
     completed_at: datetime | None = None
@@ -19,14 +22,18 @@ class Request(BaseModel):
     latency: float = Field(ge=0)
     ttft: float = Field(ge=0)
 
+
 class RoutingDecision(BaseModel):
+    id: UUID
     request_id: UUID
     candidates: list[str]
     scores: dict[str, float]
     constraints: dict[str, Any]
     selected: str
 
+
 class Evaluation(BaseModel):
+    id: UUID
     request_id: UUID
     evaluator: str
     dimensions: dict[str, float]
