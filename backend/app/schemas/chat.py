@@ -34,6 +34,8 @@ class RoutingMeta(BaseModel):
     predicted_quality: float | None = None
     predicted_latency_ms: float | None = None
     fallback_used: bool = False
+    fallback_reason: str | None = None
+    fallbacks_attempted: list[str] = Field(default_factory=list)
 
 
 class ResponseMessage(BaseModel):
