@@ -9,5 +9,6 @@ class Settings(BaseSettings):
     SECRET_KEY:str
     ALGORITHM:str
     EXP_TIME : int
+    GROQ_API_KEY: str
 
 settings = Settings()

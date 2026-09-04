@@ -1,12 +1,28 @@
 from datetime import datetime
-from typing import Any
 from uuid import UUID
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict
 
-class APIKey(BaseModel):
+
+class APIKeyCreate(BaseModel):
+    project_id: UUID
+
+
+class APIKeyCreated(BaseModel):
+
     id: UUID
     project_id: UUID
-    key_hash: str
+    prefix: str
+    api_key: str
+    created_at: datetime
+
+
+class APIKey(BaseModel):
+
+    model_config = ConfigDict(from_attributes=True)
+
+    id: UUID
+    project_id: UUID
     prefix: str
     revoked_at: datetime | None = None
+    created_at: datetime
