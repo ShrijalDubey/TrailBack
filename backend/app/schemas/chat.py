@@ -9,7 +9,6 @@ class ChatMessage(BaseModel):
 
 
 class RouteConstraints(BaseModel):
-    """PRD 9.2's `route` block -- all optional, caller opts into constraints."""
 
     budget_usd: float | None = Field(default=None, ge=0)
     max_latency_ms: int | None = Field(default=None, ge=0)

@@ -11,16 +11,12 @@ def utcnow() -> datetime:
 
 
 class UUIDPKMixin:
-    """Gives a table a UUID primary key that defaults client-side."""
-
     id: Mapped[uuid.UUID] = mapped_column(
         PG_UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
     )
 
 
 class TimestampMixin:
-    """created_at set on insert, updated_at bumped on every update."""
-
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=utcnow, onupdate=utcnow

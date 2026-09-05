@@ -2,10 +2,12 @@ from datetime import datetime
 from typing import Any
 from uuid import UUID
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class Request(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: UUID
     project_id: UUID
     model_id: UUID | None = None
@@ -24,6 +26,8 @@ class Request(BaseModel):
 
 
 class RoutingDecision(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: UUID
     request_id: UUID
     candidates: list[str]
@@ -32,7 +36,13 @@ class RoutingDecision(BaseModel):
     selected: str
 
 
+class RequestDetail(Request):
+    routing_decision: RoutingDecision | None = None
+
+
 class Evaluation(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: UUID
     request_id: UUID
     evaluator: str
