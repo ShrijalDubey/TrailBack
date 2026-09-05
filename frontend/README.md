@@ -1,31 +1,26 @@
-# TrailBack Frontend
+# TrailBack Console
 
-React + Vite dashboard for TrailBack, the intelligent LLM routing and cost optimization platform. The UI follows a dense developer-infrastructure aesthetic inspired by the supplied reference image, while the navigation and content map to TrailBack's actual MVP scope.
+Production-style React dashboard for the TrailBack FastAPI backend.
+
+## What is connected
+- API-key authentication through `GET /v1/me`
+- Live cost and latency analytics
+- Request log + request detail/routing decision inspection
+- Projects, providers, models and API-key management
+- Real `/v1/chat/completions` gateway playground
+- Backend health test
+- Roadmap dashboards for Cache, Benchmarks and Evaluations without fabricated metrics
 
 ## Run
-
 ```bash
-cd frontend
 npm install
+copy .env.example .env
 npm run dev
 ```
 
-The frontend expects FastAPI at `http://localhost:8000` by default. Copy `.env.example` to `.env` to change `VITE_API_URL`.
+Set `VITE_API_URL` to the machine/IP where FastAPI is running, e.g. `http://192.168.1.25:8000`.
 
-## Implemented UI
+The backend must allow the frontend origin in its CORS configuration. For a LAN deployment, add the frontend's actual origin to `allow_origins` in `backend/app/main.py`.
 
-- Local sign-in screen and persisted workspace session
-- Overview dashboard with request, token, spend, latency and model distribution views
-- Interactive routing playground wired to `POST /v1/chat/completions`
-- Model registry and provider views
-- Routing policy visualizer for Balanced, Cheapest, Fastest and Quality-first
-- Request explorer using live/local request telemetry
-- Project creation and project switching
-- Project API-key creation/revocation
-- Retention status screen
-- Responsive sidebar/topbar and account menu
-- Benchmarks, Optimization Analytics, Semantic Cache, and Alerts/Budgets are explicitly marked Coming Soon because their backend management/execution endpoints are not present yet
-
-## Backend integration
-
-The frontend sends an `X-API-Key` header when a TrailBack project key exists in the browser session. The backend received a small CORS update for local development so the Vite app can call FastAPI from the browser.
+## Authentication
+The current backend does not expose email/password login. The UI therefore uses the project's real `X-API-Key` as the login credential, validates it through `/v1/me`, and then attaches it to protected requests.

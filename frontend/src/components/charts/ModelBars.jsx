@@ -1,0 +1,2 @@
+import {ResponsiveContainer,BarChart,Bar,XAxis,YAxis,Tooltip,CartesianGrid} from 'recharts';
+export default function ModelBars({data=[]}){return <div className="chart"><ResponsiveContainer width="100%" height="100%"><BarChart data={data} layout="vertical"><CartesianGrid strokeDasharray="3 3" horizontal={false}/><XAxis type="number" tickLine={false} axisLine={false}/><YAxis dataKey="model" type="category" width={120} tickLine={false} axisLine={false}/><Tooltip/><Bar dataKey="requests" radius={[0,5,5,0]} /></BarChart></ResponsiveContainer></div>}

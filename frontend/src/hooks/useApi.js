@@ -1,0 +1,2 @@
+import {useCallback,useEffect,useState} from 'react';
+export function useApi(fn,deps=[]){const [state,setState]=useState({data:null,loading:true,error:null});const run=useCallback(async()=>{setState(s=>({...s,loading:true,error:null}));try{const r=await fn();setState({data:r.data,loading:false,error:null});return r.data}catch(error){setState({data:null,loading:false,error});throw error}},deps);useEffect(()=>{run().catch(()=>{})},[run]);return {...state,refresh:run};}
